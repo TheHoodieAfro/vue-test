@@ -4,6 +4,26 @@
       <div class="app-container">
         <header class="app-header dark-brown">
           <h1>My Pet Store</h1>
+          <v-toolbar>
+            <v-toolbar-items>
+              <v-btn to="/">Home</v-btn>
+              <v-btn to="/pets">Pets</v-btn>
+            </v-toolbar-items>
+            <v-spacer></v-spacer>
+            <router-link to="/favorites">
+              <v-badge
+                color="blue lighten-1"
+                overlap
+                righ
+                v-model="favorites.length"
+              >
+                <template #badge>
+                  {{ favorites.length }}
+                </template>
+                <v-icon large> loyalty </v-icon>
+              </v-badge>
+            </router-link>
+          </v-toolbar>
           <v-btn @click="themeSwitched = !themeSwitched">Switch Theme</v-btn>
         </header>
         <router-view></router-view>
@@ -14,6 +34,7 @@
     </main>
   </v-app>
 </template>
+
 <script>
 export default {
   name: "App",
@@ -22,8 +43,14 @@ export default {
       themeSwitched: true,
     };
   },
+  computed: {
+    favorites: function () {
+      return this.$store.state.favorites;
+    },
+  },
 };
 </script>
+
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Roboto");
 /*brown and mint*/
